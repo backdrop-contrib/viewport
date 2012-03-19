@@ -1,0 +1,98 @@
+<?php
+/**
+ * @file
+ * viewport module
+ * Allows to set a viewport metatag with custom settings for a selected set of pages.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function viewport_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#viewport':
+      return '<p>' . t('To be completed') . '</p>';
+      break;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function viewport_permission() {
+  return array(
+    'administer viewport' => array(
+      'title' => t('Administer Viewport Settings'),
+      'description' => t('Configure viewport settings for a selected set of pages'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function viewport_menu() {
+  $items = array();
+
+  $items['admin/config/user-interface/viewport'] = array(
+    'title' => 'Viewport Settings',
+    'description' => t('Configure viewport settings for a selected set of pages.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('viewport_settings_form'),
+    'access arguments' => array('administer viewport'),
+    'file' => 'viewport.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function viewport_preprocess_html(&$vars) {
+  // Check if the viewport tag needs to be present
+  if (viewport_path_is_selected()) {
+    $values_string = '';
+    $values_string .= ($width = variable_get('viewport_width', FALSE)) ? "width=$width, " : '';
+    $values_string .= ($height = variable_get('viewport_height', FALSE)) ? "height=$height, " : '';
+    $values_string .= ($initial_scale = variable_get('viewport_initial_scale', FALSE)) ? "initial_scale=$initial_scale, " : '';
+    $values_string .= ($minimum_scale = variable_get('viewport_minimum_scale', FALSE)) ? "minimum_scale=$minimum_scale, " : '';
+    $values_string .= ($maximum_scale = variable_get('viewport_maximum_scale', FALSE)) ? "maximum_scale=$maximum_scale, " : '';
+    $values_string .= (variable_get('viewport_user_scalable', FALSE) == TRUE) ? "user_scalable=yes" : 'user_scalable=no';
+
+    $html_tag = array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'viewport',
+        'content' => $values_string,
+      ),
+    );
+    drupal_add_html_head($html_tag, 'viewport');
+  }
+  // Return if not.
+  else return;
+}
+
+/**
+ * @param optional String $path
+ *  The path or alias of a page to be checked against the selected pages for the viewport
+ * @return bool
+ *  TRUE if the patch is present in the selected values, FALSE otherwise
+ */
+function viewport_path_is_selected($path = NULL) {
+  // Use the variable of $_GET['q'] as the default $path.
+  if (is_null($path)) {
+    $path = $_GET['q'];
+  }
+  $viewport_pages = variable_get('viewport_selected_pages', '');
+
+  // Normalise the pages selected and the path looked for
+  $path = strtolower($path);
+  $viewport_pages = strtolower($viewport_pages);
+
+  $page_match = drupal_match_path($path, $viewport_pages);
+
+  return $page_match;
+}
