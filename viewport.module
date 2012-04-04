@@ -2,7 +2,8 @@
 /**
  * @file
  * viewport module
- * Allows to set a viewport metatag with custom settings for a selected set of pages.
+ * Allows to set a viewport metatag with custom settings for a selected set of
+ * pages.
  */
 
 /**
@@ -36,7 +37,7 @@ function viewport_menu() {
 
   $items['admin/config/user-interface/viewport'] = array(
     'title' => 'Viewport Settings',
-    'description' => t('Configure viewport settings for a selected set of pages.'),
+    'description' => 'Configure viewport settings for a selected set of pages.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('viewport_settings_form'),
     'access arguments' => array('administer viewport'),
@@ -51,7 +52,7 @@ function viewport_menu() {
  * Implements hook_preprocess_html().
  */
 function viewport_preprocess_html(&$vars) {
-  // Check if the viewport tag needs to be present
+  // Check if the viewport tag needs to be present.
   if (viewport_path_is_selected()) {
     $values_string = '';
     $values_string .= ($width = variable_get('viewport_width', FALSE)) ? "width=$width, " : '';
@@ -72,23 +73,28 @@ function viewport_preprocess_html(&$vars) {
     drupal_add_html_head($html_tag, 'viewport');
   }
   // Return if not.
-  else return;
+  else {
+    return;
+  }
 }
 
 /**
- * @param optional String $path
- *  The path or alias of a page to be checked against the selected pages for the viewport
+ *
+ * @param optional $path
+ *  The path or alias of a page to be checked against the selected pages for
+ *  the viewport.
+ *
  * @return bool
- *  TRUE if the patch is present in the selected values, FALSE otherwise
+ *   TRUE if the patch is present in the selected values, FALSE otherwise.
  */
 function viewport_path_is_selected($path = NULL) {
   // Use the variable of $_GET['q'] as the default $path.
   if (is_null($path)) {
-    $path = $_GET['q'];
+    $path = current_path();
   }
   $viewport_pages = variable_get('viewport_selected_pages', '');
 
-  // Normalise the pages selected and the path looked for
+  // Normalise the pages selected and the path looked for.
   $path = strtolower($path);
   $viewport_pages = strtolower($viewport_pages);
 

@@ -12,16 +12,25 @@
 function viewport_settings_form() {
   $form = array();
 
-  $path_patterns_description = t("Specify pages by using their paths. Enter one path per line.
-    The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog.
-    %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>'));
+  $path_patterns_description = t("The viewport settings will be applied to the following paths. <br/>
+    Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard.
+    Example paths are %blog for the blog page and %blog-wildcard for every personal blog.
+    %front is the front page.", array(
+      '%blog' => 'blog',
+      '%blog-wildcard' => 'blog/*',
+      '%front' => '<front>',
+    ));
 
   $form['viewport'] = array(
     '#type' => 'fieldset',
-    '#description' => t('The values for the viewport metatag will be output in the same way as entered here for the selected pages below. <br/>
+    '#description' => t('The values for the viewport metatag will be output in the same way as entered here
+      for the selected pages below. <br/>
       For the numeric values with decimal digits, use the decimal point "." instead of a comma "," <br/>
       If you don\'t know what are these values for, you should visit the !help-page to learn more about the Viewport metatag',
-        array('!help-page' => l("Viewport's help page", 'admin/help/viewport', array('html' => TRUE)))),
+        array(
+          '!help-page' => l(t("Viewport's help page"),'admin/help/viewport'),
+        )
+    ),
   );
   $form['viewport']['viewport_width'] = array(
     '#type' => 'textfield',
@@ -47,7 +56,7 @@ function viewport_settings_form() {
     '#type' => 'textfield',
     '#title' => t('Minimum Scale'),
     '#default_value' => variable_get('viewport_minimum_scale', ''),
-    '#description' => t('Any value in the range (0, 10.0]. Usually this is set to the same value than the %initial-scale property',
+    '#description' => t('Any value in the range (0, 10.0]. Usually this is set to the same value as the %initial-scale property',
       array('%initial-scale' => 'initial-scale')),
   );
   $form['viewport']['viewport_maximum_scale'] = array(
@@ -65,7 +74,7 @@ function viewport_settings_form() {
     '#type' => 'textarea',
     '#title' => t('Selected pages'),
     '#default_value' => variable_get('viewport_selected_pages'),
-    '#description' => t('The viewport settings will be applied to the following path. <br/>' . $path_patterns_description),
+    '#description' => t($path_patterns_description),
   );
 
   return system_settings_form($form);

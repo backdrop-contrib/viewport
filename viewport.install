@@ -8,7 +8,7 @@
  * Implements hook_uninstall().
  */
 function viewport_uninstall() {
-  // Delete viewport variables from db
+  // Delete viewport variables from db.
   variable_del('viewport_width');
   variable_del('viewport_height');
   variable_del('viewport_initial_scale');
