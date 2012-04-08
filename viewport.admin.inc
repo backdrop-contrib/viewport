@@ -80,3 +80,27 @@ function viewport_settings_form() {
 
   return system_settings_form($form);
 }
+
+/**
+ * Validates the values entered for the viewport properties.
+ *
+ * At the time being, it only provides a basic validation, looking for the
+ * existence of commas.
+ */
+function viewport_settings_form_validate(&$form, &$form_state) {
+  $error_message = 'Commas are not allowed for the %field_name field.
+        Please, ensure you are using dots (".") when entering decimal values,
+        and avoid any commas after the values';
+
+  foreach ($form_state['values'] as $key => $value) {
+    // User_scalable is a checkbox, no need to check for commas.
+    if (strstr($key, 'viewport_') && $key != 'viewport_user_scalable') {
+      if (strstr($value, ',')) {
+        form_set_error($key, t($error_message, array(
+            '%field_name' => $form['viewport'][$key]['#title'],
+          ))
+        );
+      }
+    }
+  }
+}
