@@ -114,11 +114,11 @@ function viewport_preprocess_html(&$vars) {
  * Checks whether a given path (or the current path if none is provided) has
  * been configured to display a viewport tag.
  *
- * @param $path
+ * @param optional $path
  *   The path or alias of a page to be checked against the selected pages for
  *   the viewport.
  *
- * @return
+ * @return boolean
  *   TRUE if the patch is present in the selected values, FALSE otherwise.
  */
 function viewport_path_is_selected($path = NULL) {
