@@ -75,7 +75,7 @@ function viewport_settings_form() {
     '#type' => 'textarea',
     '#title' => t('Selected pages'),
     '#default_value' => variable_get('viewport_selected_pages'),
-    '#description' => t($path_patterns_description),
+    '#description' => $path_patterns_description,
   );
 
   return system_settings_form($form);
