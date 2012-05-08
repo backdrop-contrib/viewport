@@ -12,7 +12,7 @@
 function viewport_help($path, $arg) {
   switch ($path) {
     case 'admin/help#viewport':
-      $help_text = '<p>The Viewport module is a simple module that allows
+      $help_text = t('<p>The Viewport module is a simple module that allows
         administrators, or users with the "Administer Viewport Settings" permission,
         to set a Viewport HTML metatag with the desired properties for one or several
         pages that can be configured from the Settings page of the module.</p>
@@ -26,7 +26,7 @@ function viewport_help($path, $arg) {
         the site (e.g when embedding a game for smartphones / tablets). This tool
         helps to chase easily situations like that.</p>
         <p><strong>For more information on the viewport metatag and its
-        properties, check the following resources: </strong></p>';
+        properties, check the following resources: </strong></p>');
 
       $resource_links = array(
         'items' => array(
@@ -44,7 +44,7 @@ function viewport_help($path, $arg) {
 
       $help_text .= theme('item_list', $resource_links);
 
-      return t($help_text);
+      return $help_text;
       break;
   }
 }
@@ -103,10 +103,6 @@ function viewport_preprocess_html(&$vars) {
       ),
     );
     drupal_add_html_head($html_tag, 'viewport');
-  }
-  // Return if not.
-  else {
-    return;
   }
 }
 

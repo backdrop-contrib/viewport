@@ -13,15 +13,6 @@
 function viewport_settings_form() {
   $form = array();
 
-  $path_patterns_description = t("The viewport settings will be applied to the following paths. <br/>
-    Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard.
-    Example paths are %blog for the blog page and %blog-wildcard for every personal blog.
-    %front is the front page.", array(
-      '%blog' => 'blog',
-      '%blog-wildcard' => 'blog/*',
-      '%front' => '<front>',
-    ));
-
   $form['viewport'] = array(
     '#type' => 'fieldset',
     '#description' => t('The values for the viewport metatag will be output in the same way as entered here
@@ -75,7 +66,14 @@ function viewport_settings_form() {
     '#type' => 'textarea',
     '#title' => t('Selected pages'),
     '#default_value' => variable_get('viewport_selected_pages'),
-    '#description' => $path_patterns_description,
+    '#description' => t("The viewport settings will be applied to the following paths. <br/>
+    Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard.
+    Example paths are %blog for the blog page and %blog-wildcard for every personal blog.
+    %front is the front page.", array(
+      '%blog' => 'blog',
+      '%blog-wildcard' => 'blog/*',
+      '%front' => '<front>',
+    )),
   );
 
   return system_settings_form($form);
@@ -88,15 +86,13 @@ function viewport_settings_form() {
  * existence of commas.
  */
 function viewport_settings_form_validate(&$form, &$form_state) {
-  $error_message = 'Commas are not allowed for the %field_name field.
-        Please, ensure you are using dots (".") when entering decimal values,
-        and avoid any commas after the values';
-
   foreach ($form_state['values'] as $key => $value) {
     // User_scalable is a checkbox, no need to check for commas.
     if (strstr($key, 'viewport_') && $key != 'viewport_user_scalable') {
       if (strstr($value, ',')) {
-        form_set_error($key, t($error_message, array(
+        form_set_error($key, t('Commas are not allowed for the %field_name field.
+        Please, ensure you are using dots (".") when entering decimal values,
+        and avoid any commas after the values', array(
             '%field_name' => $form['viewport'][$key]['#title'],
           ))
         );

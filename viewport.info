@@ -1,6 +1,5 @@
 name = Viewport
-description = "Allows to add a viewport metatag inside the head section of selected pages, with values
-               that can be modified on the viewport settings page."
+description = "Allows to add viewport custom settings for selected pages."
 package = User interface
 core = 7.x
 configure = "admin/config/user-interface/viewport"
