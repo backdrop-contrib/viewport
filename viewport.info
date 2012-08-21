@@ -3,3 +3,7 @@ description = "Allows to add viewport custom settings for selected pages."
 package = User interface
 core = 7.x
 configure = "admin/config/user-interface/viewport"
+
+files[] = viewport.module
+files[] = viewport.admin.inc
+files[] = viewport.test
