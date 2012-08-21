@@ -89,10 +89,10 @@ function viewport_preprocess_html(&$vars) {
     $values_string = '';
     $values_string .= ($width = variable_get('viewport_width', FALSE)) ? "width=$width, " : '';
     $values_string .= ($height = variable_get('viewport_height', FALSE)) ? "height=$height, " : '';
-    $values_string .= ($initial_scale = variable_get('viewport_initial_scale', FALSE)) ? "initial_scale=$initial_scale, " : '';
-    $values_string .= ($minimum_scale = variable_get('viewport_minimum_scale', FALSE)) ? "minimum_scale=$minimum_scale, " : '';
-    $values_string .= ($maximum_scale = variable_get('viewport_maximum_scale', FALSE)) ? "maximum_scale=$maximum_scale, " : '';
-    $values_string .= (variable_get('viewport_user_scalable', FALSE) == TRUE) ? "user_scalable=yes" : 'user_scalable=no';
+    $values_string .= ($initial_scale = variable_get('viewport_initial_scale', FALSE)) ? "initial-scale=$initial_scale, " : '';
+    $values_string .= ($minimum_scale = variable_get('viewport_minimum_scale', FALSE)) ? "minimum-scale=$minimum_scale, " : '';
+    $values_string .= ($maximum_scale = variable_get('viewport_maximum_scale', FALSE)) ? "maximum-scale=$maximum_scale, " : '';
+    $values_string .= (variable_get('viewport_user_scalable', FALSE) == TRUE) ? "user-scalable=yes" : 'user-scalable=no';
 
     $html_tag = array(
       '#type' => 'html_tag',
