@@ -5,10 +5,9 @@
  */
 
 /**
- * Configuration form to set up the desired viewport values, and the pages in
- * which these will be applied.
+ * Configuration form for viewport tag values and presence settings.
  *
- * Presented at: admin/config/user-interface/viewport
+ * Presented at: admin/config/user-interface/viewport.
  */
 function viewport_settings_form() {
   $form = array();
@@ -93,8 +92,8 @@ function viewport_settings_form_validate(&$form, &$form_state) {
         form_set_error($key, t('Commas are not allowed for the %field_name field.
         Please, ensure you are using dots (".") when entering decimal values,
         and avoid any commas after the values', array(
-            '%field_name' => $form['viewport'][$key]['#title'],
-          ))
+          '%field_name' => $form['viewport'][$key]['#title'],
+        ))
         );
       }
     }

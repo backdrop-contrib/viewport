@@ -10,6 +10,7 @@
  * Implements hook_help().
  */
 function viewport_help($path, $arg) {
+  $help_text = '';
   switch ($path) {
     case 'admin/help#viewport':
       $help_text = t('<p>The Viewport module is a simple module that allows
@@ -43,10 +44,11 @@ function viewport_help($path, $arg) {
       );
 
       $help_text .= theme('item_list', $resource_links);
-
-      return $help_text;
       break;
+
   }
+
+  return $help_text;
 }
 
 /**
@@ -114,7 +116,7 @@ function viewport_preprocess_html(&$vars) {
  *   The path or alias of a page to be checked against the selected pages for
  *   the viewport.
  *
- * @return boolean
+ * @return bool
  *   TRUE if the patch is present in the selected values, FALSE otherwise.
  */
 function viewport_path_is_selected($path = NULL) {
