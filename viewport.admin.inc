@@ -59,7 +59,7 @@ function viewport_settings_form() {
   $form['viewport']['viewport_user_scalable'] = array(
     '#type' => 'checkbox',
     '#title' => t('User Scalable'),
-    '#default_value' => variable_get('viewport_user_scalable', FALSE),
+    '#default_value' => variable_get('viewport_user_scalable', TRUE),
   );
   $form['viewport']['viewport_selected_pages'] = array(
     '#type' => 'textarea',
