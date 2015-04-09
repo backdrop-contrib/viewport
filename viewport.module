@@ -112,7 +112,7 @@ function viewport_preprocess_html(&$vars) {
  * Checks whether a given path (or the current path if none is provided) has
  * been configured to display a viewport tag.
  *
- * @param optional $path
+ * @param string $path
  *   The path or alias of a page to be checked against the selected pages for
  *   the viewport.
  *
@@ -127,10 +127,15 @@ function viewport_path_is_selected($path = NULL) {
   $viewport_pages = variable_get('viewport_selected_pages', '');
 
   // Normalise the pages selected and the path looked for.
+  $path_alias = drupal_strtolower(drupal_get_path_alias($path));
   $path = strtolower($path);
   $viewport_pages = strtolower($viewport_pages);
 
+  // Page will match if current patch matches, or its alias (if any) matches.
   $page_match = drupal_match_path($path, $viewport_pages);
+  if (($path_alias != $path) && !$page_match) {
+    $page_match = drupal_match_path($path_alias, $viewport_pages);
+  }
 
   return $page_match;
 }
