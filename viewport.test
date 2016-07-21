@@ -11,7 +11,7 @@ class ViewportPermissionsExist extends DrupalWebTestCase {
    * Sets up the required environment for the tests.
    */
   public function setUp() {
-    parent::setUp();
+    parent::setUp('viewport');
   }
 
   /**
@@ -31,7 +31,7 @@ class ViewportPermissionsExist extends DrupalWebTestCase {
   public function testPermissionsExist() {
     $perms_defined = module_invoke('viewport', 'permission');
 
-    $this->assertTrue($perms_defined['administer viewport'], t('Administer permission exists'));
+    $this->assertTrue($perms_defined['administer viewport'], t('Administer viewport permission exists'));
   }
 
 }
