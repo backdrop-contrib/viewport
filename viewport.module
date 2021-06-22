@@ -95,29 +95,29 @@ function viewport_config_info() {
 }
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_html_head_alter().
  */
-function viewport_preprocess_html(&$vars) {
+function viewport_html_head_alter(&$vars) {
   $config = config('viewport.settings');
   // Check if the viewport tag needs to be present.
   if (viewport_path_is_selected()) {
-    $values_string = '';
-    $values_string .= ($width = $config->get('viewport_width')) ? "width=$width, " : '';
-    $values_string .= ($height = $config->get('viewport_height')) ? "height=$height, " : '';
-    $values_string .= ($initial_scale = $config->get('viewport_initial_scale')) ? "initial-scale=$initial_scale, " : '';
-    $values_string .= ($minimum_scale = $config->get('viewport_minimum_scale')) ? "minimum-scale=$minimum_scale, " : '';
-    $values_string .= ($maximum_scale = $config->get('viewport_maximum_scale')) ? "maximum-scale=$maximum_scale, " : '';
-    $values_string .= $config->get('viewport_user_scalable') ? "user-scalable=yes" : 'user-scalable=no';
-
-    $html_tag = array(
-      '#type' => 'html_tag',
-      '#tag' => 'meta',
-      '#attributes' => array(
-        'name' => 'viewport',
-        'content' => $values_string,
-      ),
+    $settings = array(
+      'width' => $config->get('viewport_width'),
+      'height' => $config->get('viewport_height'),
+      'initial-scale' => $config->get('viewport_initial_scale'),
+      'minimum-scale' => $config->get('viewport_minimum_scale'),
+      'maximum-scale' => $config->get('viewport_maximum_scale'),
+      'user-scalable' => $config->get('viewport_user_scalable') ? 'yes' : 'no',
     );
-    backdrop_add_html_head($html_tag, 'viewport');
+
+    foreach ($settings as $key => $setting) {
+      if (!empty($setting)) {
+        $attributes[] = sprintf('%s=%s', $key, $setting);
+      }
+    }
+
+    $content = implode(', ', $attributes);
+    $vars['viewport']['#attributes']['content'] = $content;
   }
 }
 
