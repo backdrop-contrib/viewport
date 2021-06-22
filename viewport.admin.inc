@@ -10,7 +10,9 @@
  * Presented at: admin/config/user-interface/viewport.
  */
 function viewport_settings_form() {
+  $config = config('viewport.settings');
   $form = array();
+  $form['#config'] = 'viewport.settings';
 
   $form['viewport'] = array(
     '#type' => 'fieldset',
@@ -19,52 +21,52 @@ function viewport_settings_form() {
       For the numeric values with decimal digits, use the decimal point "." instead of a comma "," <br/>
       If you don\'t know what are these values for, you should visit the !help-page to learn more about the Viewport metatag',
         array(
-          '!help-page' => l(t("Viewport's help page"), 'admin/help/viewport'),
-        )
+      '!help-page' => l(t("Viewport's help page"), 'admin/help/viewport'),
+    )
     ),
   );
   $form['viewport']['viewport_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
-    '#default_value' => variable_get('viewport_width', ''),
+    '#default_value' => $config->get('viewport_width'),
     '#description' => t('You probably want this to be %device-width, but a fixed number of pixels (only the number) is accepted too.',
       array('%device-width' => 'device-width')),
   );
   $form['viewport']['viewport_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
-    '#default_value' => variable_get('viewport_height', ''),
+    '#default_value' => $config->get('viewport_height'),
     '#description' => t('%device-height, or a fixed number of pixels (only the number).',
       array('%device-height' => 'device-height')),
   );
   $form['viewport']['viewport_initial_scale'] = array(
     '#type' => 'textfield',
     '#title' => t('Initial Scale'),
-    '#default_value' => variable_get('viewport_initial_scale', ''),
+    '#default_value' => $config->get('viewport_initial_scale'),
     '#description' => t('Any value in the range (0, 10.0]. Usually this is set to 1.0'),
   );
   $form['viewport']['viewport_minimum_scale'] = array(
     '#type' => 'textfield',
     '#title' => t('Minimum Scale'),
-    '#default_value' => variable_get('viewport_minimum_scale', ''),
+    '#default_value' => $config->get('viewport_minimum_scale'),
     '#description' => t('Any value in the range (0, 10.0]. Usually this is set to the same value as the %initial-scale property',
       array('%initial-scale' => 'initial-scale')),
   );
   $form['viewport']['viewport_maximum_scale'] = array(
     '#type' => 'textfield',
     '#title' => t('Maximum Scale'),
-    '#default_value' => variable_get('viewport_maximum_scale', ''),
+    '#default_value' => $config->get('viewport_maximum_scale'),
     '#description' => t('Any value in the range (0, 10.0]. Usually this is set to 1.0'),
   );
   $form['viewport']['viewport_user_scalable'] = array(
     '#type' => 'checkbox',
     '#title' => t('User Scalable'),
-    '#default_value' => variable_get('viewport_user_scalable', TRUE),
+    '#default_value' => $config->get('viewport_user_scalable'),
   );
   $form['viewport']['viewport_selected_pages'] = array(
     '#type' => 'textarea',
     '#title' => t('Selected pages'),
-    '#default_value' => variable_get('viewport_selected_pages'),
+    '#default_value' => $config->get('viewport_selected_pages'),
     '#description' => t("The viewport settings will be applied to the following paths. <br/>
     Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard.
     Example paths are %blog for the blog page and %blog-wildcard for every personal blog.

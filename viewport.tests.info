@@ -1,0 +1,6 @@
+[ViewportPermissionsExist]
+name = Viewport module permissions.
+description = Just checks the required permissions exist.
+group = Viewport
+file = viewport.test
+

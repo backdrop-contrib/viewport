@@ -9,11 +9,41 @@
  */
 function viewport_uninstall() {
   // Delete viewport variables from db.
-  variable_del('viewport_width');
-  variable_del('viewport_height');
-  variable_del('viewport_initial_scale');
-  variable_del('viewport_minimum_scale');
-  variable_del('viewport_maximum_scale');
-  variable_del('viewport_user_scalable');
-  variable_del('viewport_selected_pages');
+  config_clear('viewport.settings', 'viewport_width');
+  config_clear('viewport.settings', 'viewport_height');
+  config_clear('viewport.settings', 'viewport_initial_scale');
+  config_clear('viewport.settings', 'viewport_minimum_scale');
+  config_clear('viewport.settings', 'viewport_maximum_scale');
+  config_clear('viewport.settings', 'viewport_user_scalable');
+  config_clear('viewport.settings', 'viewport_selected_pages');
+}
+
+/**
+ * Migrate viewport variables to config.
+ */
+function viewport_update_1000() {
+  $config = config('viewport.settings');
+  $config->set('viewport_width', update_variable_get('viewport_width', array()));
+  $config->set('viewport_height', update_variable_get('viewport_height', array()));
+  $config->set('viewport_initial_scale', update_variable_get('viewport_initial_scale', array()));
+  $config->set('viewport_minimum_scale', update_variable_get('viewport_minimum_scale', array()));
+  $config->set('viewport_maximum_scale', update_variable_get('viewport_maximum_scale', array()));
+  $config->set('viewport_user_scalable', update_variable_get('viewport_user_scalable', TRUE));
+  $config->set('viewport_selected_pages', update_variable_get('viewport_selected_pages', ''));
+  $config->save();
+
+  update_variable_del('viewport_width');
+  update_variable_del('viewport_height');
+  update_variable_del('viewport_initial_scale');
+  update_variable_del('viewport_minimum_scale');
+  update_variable_del('viewport_maximum_scale');
+  update_variable_del('viewport_user_scalable');
+  update_variable_del('viewport_selected_pages');
+}
+
+/**
+ * Implements hook_install().
+ */
+function viewport_install() {
+  // Dynamically generated variable data was detected.
 }
