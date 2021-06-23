@@ -5,6 +5,9 @@
  * Tests for the Viewport module.
  */
 
+/**
+ * Exteding DrpalWebTestCase class.
+ */
 class ViewportPermissionsExist extends DrupalWebTestCase {
 
   /**

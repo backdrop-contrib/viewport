@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Admin interfaces for viewport module.
@@ -20,10 +21,9 @@ function viewport_settings_form() {
       for the selected pages below. <br/>
       For the numeric values with decimal digits, use the decimal point "." instead of a comma "," <br/>
       If you don\'t know what are these values for, you should visit the !help-page to learn more about the Viewport metatag',
-        array(
+    array(
       '!help-page' => l(t("Viewport's help page"), 'admin/help/viewport'),
-    )
-    ),
+    )),
   );
   $form['viewport']['viewport_width'] = array(
     '#type' => 'textfield',
