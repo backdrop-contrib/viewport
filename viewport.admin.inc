@@ -68,9 +68,10 @@ function viewport_settings_form() {
     '#title' => t('Selected pages'),
     '#default_value' => $config->get('viewport_selected_pages'),
     '#description' => t("The viewport settings will be applied to the following paths. <br/>
-    Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard.
-    Example paths are %blog for the blog page and %blog-wildcard for every personal blog.
-    %front is the front page.", array(
+      Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard.
+      Example paths are %blog for the blog page and %blog-wildcard for every personal blog.
+      %front is the front page.",
+    array(
       '%blog' => 'blog',
       '%blog-wildcard' => 'blog/*',
       '%front' => '<front>',
@@ -92,10 +93,11 @@ function viewport_settings_form_validate(&$form, &$form_state) {
     if (strstr($key, 'viewport_') && $key != 'viewport_user_scalable') {
       if (strstr($value, ',')) {
         form_set_error($key, t('Commas are not allowed for the %field_name field.
-        Please, ensure you are using dots (".") when entering decimal values,
-        and avoid any commas after the values', array(
-          '%field_name' => $form['viewport'][$key]['#title'],
-        ))
+          Please, ensure you are using dots (".") when entering decimal values,
+          and avoid any commas after the values',
+          array(
+            '%field_name' => $form['viewport'][$key]['#title'],
+          ))
         );
       }
     }
