@@ -63,10 +63,10 @@ Credits
 -------
 
 - Ported to Backdrop CMS by [Justin Christoffersen](https://github.com/larsdesigns).
+- Backdrop port sponsored by [Ivar Jacobson International](https://www.ivarjacobson.com).
 - Current Drupal project maintainer [Salvador Molina](salvador.molinamoreno@codeenigma.com).
 - Originally written for Drupal by [Salvador Molina](salvador.molinamoreno@codeenigma.com).
 - Originally written for Drupal by [Dmitriy.trt](https://www.drupal.org/u/dmitriytrt).
-- Port Sponsored by [Jeneration Web Development](https://www.jenerationweb.com)
 
 License
 -------
