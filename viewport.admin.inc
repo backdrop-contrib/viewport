@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Admin interfaces for viewport module.
