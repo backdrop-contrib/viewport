@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Set a viewport metatag with custom settings for a selected set of paths.
@@ -155,11 +154,4 @@ function viewport_path_is_selected($path = NULL) {
   }
 
   return $page_match;
-}
-
-/**
- * Implements hook_autoload_info().
- */
-function viewport_autoload_info() {
-  return array();
 }
